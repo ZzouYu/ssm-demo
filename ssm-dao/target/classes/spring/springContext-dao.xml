@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans.xsd
+               http://www.springframework.org/schema/context
+                http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+
+    <!--1：配置数据库相关参数-->
+    <context:property-placeholder location="classpath:dbconfig.properties"/>
+
+  <!--配置dao-->
+  <!--配置数据库连接池  -->
+  <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+     <property name="driverClassName" value="${dataSource.driverClass}"/>
+     <property name="url" value="${dataSource.url}"/>
+     <property name="username" value="${dataSource.user}"/>
+     <property name="password" value="${dataSource.password}"/> <!-- 初始化连接大小 -->
+    <property name="initialSize" value="0" />
+    <!-- 连接池最大使用连接数量 -->
+    <property name="maxActive" value="20" />
+    <!-- 连接池最小空闲 -->
+    <property name="minIdle" value="0" />
+    <!-- 获取连接最大等待时间 -->
+    <property name="maxWait" value="60000" />
+    <property name="validationQuery"><value>SELECT 1</value></property>
+    <property name="testOnBorrow" value="false" />
+    <property name="testOnReturn" value="false" />
+    <property name="testWhileIdle" value="true" />
+  </bean>
+
+
+  <!--配置生产sqlsession工厂-->
+  <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+      <property name="dataSource" ref="dataSource"/>
+      <!--扫描pojo包，给包起别名-->
+      <property name="typeAliasesPackage" value="com.zy.domain"/>
+    <!--扫描配的映射文件-->
+      <property name="mapperLocations" value="classpath:/mybatis/mapper/*.xml" />
+  </bean>
+
+    <!--扫描包路径生成接口代理对象-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.zy.dao"/>
+    </bean>
+</beans>

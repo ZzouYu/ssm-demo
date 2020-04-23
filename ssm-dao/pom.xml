@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>maven-parent</artifactId>
+        <groupId>org.example</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <!--上传到送服-->
+    <distributionManagement>
+        <repository>
+            <id>zy_releases</id>
+            <name>ZY Release Repo</name>
+            <url>http://localhost:8081/repository/zy_releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>zy_snapshots</id>
+            <name>ZY Snapshot Repo</name>
+            <url>http://localhost:8081/repository/zy_snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+    <artifactId>ssm-dao</artifactId>
+     <packaging>jar</packaging>
+
+</project>
